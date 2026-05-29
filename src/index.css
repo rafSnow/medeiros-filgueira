@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-green-deep: #1a3d2e;
+  --color-green-mid: #2d6247;
+  --color-green-dark: #0d1f16;
+  --color-green-light: #e8f0eb;
+  --color-gold: #c9a84c;
+  --color-gold-light: #f5e9c8;
+  --color-offwhite: #f8f6f1;
+  --color-cream: #f2ede4;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --ease-apple: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── CSS Tokens ── */
+:root {
+  --green:      #1a3d2e;
+  --green-mid:  #2d6247;
+  --green-dark: #0d1f16;
+  --green-light:#e8f0eb;
+  --gold:       #c9a84c;
+  --gold-light: #f5e9c8;
+  --offwhite:   #f8f6f1;
+  --cream:      #f2ede4;
+  --white:      #ffffff;
+  --text:       #1a1a1a;
+  --text-muted: #525252;
+  --ease-apple: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Base ── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { 
+    scroll-behavior: smooth; 
+    font-size: 16px; 
+    scroll-padding-top: 70px;
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--white);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+}
+
+/* ── Scroll-reveal animation system ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition:
+    opacity 0.9s var(--ease-apple),
+    transform 0.9s var(--ease-apple);
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children */
+.reveal-group > * {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s var(--ease-apple),
+    transform 0.8s var(--ease-apple);
+  will-change: opacity, transform;
+}
+
+.reveal-group.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+.reveal-group.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.12s; }
+.reveal-group.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.24s; }
+.reveal-group.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.36s; }
+.reveal-group.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.48s; }
+.reveal-group.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.60s; }
+
+/* Fade-up variants */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.22s; }
+.reveal-delay-3 { transition-delay: 0.34s; }
+.reveal-delay-4 { transition-delay: 0.46s; }
+
+/* ── Hero entrance animation ── */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-anim-1 { animation: heroFadeUp 1s var(--ease-apple) 0.1s both; }
+.hero-anim-2 { animation: heroFadeUp 1s var(--ease-apple) 0.28s both; }
+.hero-anim-3 { animation: heroFadeUp 1s var(--ease-apple) 0.46s both; }
+.hero-anim-4 { animation: heroFadeUp 1s var(--ease-apple) 0.64s both; }
+
+/* ── Gold divider utility ── */
+.gold-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  margin: 20px 0;
+  opacity: 0.8;
+}
+
+/* ── Whatsapp float button ── */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  transition: transform 0.2s var(--ease-apple), box-shadow 0.2s var(--ease-apple);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.wa-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(37,211,102,0.55);
+}
+
+/* ── Nav link hover ── */
+.nav-link {
+  position: relative;
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s var(--ease-apple);
+}
+.nav-link:hover { color: rgba(255,255,255,1); }
+.nav-link:hover::after { width: 100%; }
+
+/* ── Service card hover ── */
+.service-card {
+  transition: transform 0.35s var(--ease-apple), box-shadow 0.35s var(--ease-apple);
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(26,61,46,0.12);
+}
+
+/* ── FAQ accordion ── */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s var(--ease-apple), padding 0.3s;
+}
+.faq-answer.open {
+  max-height: 200px;
+}
+
+/* ── Stat counter ── */
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--green);
+  line-height: 1;
+}
+
+/* ── Background sections ── */
+.bg-green  { background-color: var(--green); }
+.bg-green-dark { background-color: var(--green-dark); }
+.bg-offwhite { background-color: var(--offwhite); }
+.bg-cream { background-color: var(--cream); }
+
+/* ── Noise texture overlay ── */
+.texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
